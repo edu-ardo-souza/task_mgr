@@ -1,9 +1,10 @@
-from datetime import datetime
-import Status
+from pydantic import BaseModel, Field
+import uuid
 
-class Task:
-    def __init__(self, title: str, description: str, creationDate: datetime, status: Status) -> None:
-        self.title = title
-        self.description = description
-        self.creationDate = creationDate
-        self.status = status
+# ToBeDone: creationDate as datetime, status as model.Status
+class Task(BaseModel):
+    id: str = Field(default_factory=uuid.uuid4, alias="_id")
+    title: str = Field(...)
+    description: str = Field(...)
+    creationDate: str = Field(...)
+    status: str = Field(...)
