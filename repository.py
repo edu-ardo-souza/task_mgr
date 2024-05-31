@@ -1,6 +1,7 @@
 from model.Task import Task
 from pymongo import MongoClient
 from configparser import ConfigParser
+from fastapi.encoders import jsonable_encoder
 
 config_object = ConfigParser()
 config_object.read('config.ini')
@@ -20,8 +21,10 @@ def list():
 def create(task : Task):
     return mongoCol.insert_one(task)
 
-def update(task : Task):
-    return mongoCol.update_one(task)
+# ToBeDone: raise task not found exception
+def update(task_id : str, task : Task):
+    return mongoCol.update_one({"_id":task_id},{"$set": task}, upsert=False)
 
+# ToBeDone: raise task not found exception
 def delete(id : str):
     return mongoCol.delete_one({"_id": id})

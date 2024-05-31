@@ -14,9 +14,9 @@ def create(task : Task):
     logger.info("Creating new task : " + task)
     return repository.create(task)
 
-def update(task : Task):
-    logger.info("Updating existing task : " + task)
-    return repository.update(task)
+def update(task_id : str, task : Task):
+    logger.info("Updating existing task")
+    return repository.update(task_id, task)
 
 def delete(id : str):
     logger.info("Deleting task id : " + id)

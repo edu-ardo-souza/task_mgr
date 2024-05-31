@@ -14,11 +14,15 @@ def create(request: Request, task : Task = Body(...)):
     task = jsonable_encoder(task)
     return service.create(task)
 
-@app.patch("/update", response_description="Update an existing task", status_code=status.HTTP_200_OK, response_model=Task)
-async def update(request: Request, task : Task = Body(...)):
+# ToBeDone: fix proper functioning of update
+@app.patch("/update/{task_id}", response_description="Update an existing task", status_code=status.HTTP_200_OK, response_model=Task)
+async def update(request: Request, task_id : str, task : Task = Body(...)):
     task = jsonable_encoder(task)
-    return service.update(task)
+    return service.update(task_id, task)
 
+# ToBeDone: fix proper functioning of delete
 @app.delete("/delete", response_description="Delete an existing task", status_code=status.HTTP_200_OK)
 async def delete(request: Request, id : str = Body(...)):
     return service.delete(id)
+
+# ToBeDone: get task by ID
